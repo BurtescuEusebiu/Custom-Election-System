@@ -1,143 +1,191 @@
-Sistem de Alegeri
-Acest proiect modelează un sistem de alegeri care permite gestionarea votanților, candidaților, zonelor de vot, regiunilor și analizarea rezultatelor alegerilor.
-Simulează procesul de votare, colectarea voturilor și analiza rezultatelor pe diferite niveluri (zonă, regiune și național).
-De asemenea, sistemul urmărește activitățile frauduloase în cadrul procesului electoral.
+# Election System
 
-Funcționalități
-Votanți: Adăugarea și urmărirea votanților în diferite zone. Fiecare votant poate exprima un vot pentru un candidat.
-Candidați: Înregistrarea candidaților și urmărirea voturilor pe care le primesc.
-Zone: Organizarea zonelor (de exemplu, localități sau districte) în care se exprimă voturile, fiecare cu lista proprie de votanți și numărul de voturi.
-Regiuni: Gruparea mai multor zone într-o regiune, cu agregarea datelor de vot la nivel regional.
-Analiza Alegerilor: Analiza rezultatelor la nivel de zonă, regiune sau național, afișând numărul de voturi și procentele de distribuție a acestora.
-Detectarea Fraudelor: Urmărirea și listarea activităților frauduloase în cadrul alegerilor.
+This project models an election system that allows the management of voters, candidates, voting zones, regions, and the analysis of election results.  
+It simulates the voting process, vote collection, and result analysis at different levels (zone, region, and national).  
+The system also tracks fraudulent activities during the electoral process.
 
-Prezentare Generală a Claselor:
+---
 
-Candidate
-Reprezintă un candidat în cadrul alegerilor.
+## Features
 
-Atribute:
-CNP: Un identificator unic al candidatului.
-age: Vârsta candidatului.
-name: Numele candidatului.
+### Voters
+- Add and track voters in different zones.
+- Each voter can cast a vote for a candidate.
 
-Metode:
-Getteri și setteri pentru fiecare atribut.
+### Candidates
+- Register candidates.
+- Track the number of votes each candidate receives.
 
+### Zones
+- Organize voting zones (e.g., towns or districts).
+- Each zone has its own list of voters and vote count.
 
-Voter
-Reprezintă un votant eligibil pentru a vota în cadrul alegerilor.
+### Regions
+- Group multiple zones into a region.
+- Aggregate voting data at the regional level.
 
-Atribute:
-CNP: Un identificator unic pentru votant.
-age: Vârsta votantului.
-graceless: O valoare booleană care indică dacă votantul este "neîndemânatic".
-voted: O valoare booleană care indică dacă votantul a votat deja.
-name: Numele votantului.
+### Election Analysis
+- Analyze results at zone, region, or national level.
+- Display the total number of votes and their percentage distribution.
 
-Metode:
-vote(): Marchează votantul ca având dreptul de a vota.
+### Fraud Detection
+- Track and list fraudulent activities within the election process.
 
+---
 
-Zone
-Reprezintă o circumscripție (de exemplu, o localitate sau un district) în care votanții își exprimă voturile.
+# Class Overview
 
-Atribute:
-name: Numele zonei.
-totalVotes: Numărul total de voturi exprimate în această zonă.
-region: Regiunea din care face parte zona.
-voters: O mapă cu votanți, identificată prin CNP.
-votes: O mapă cu candidați și numărul de voturi pe care le-au primit în această zonă.
+## Candidate
 
-Metode:
-addVoter(): Adaugă un votant în zonă.
-addVote(): Înregistrează un vot pentru un candidat din partea unui votant.
-freeVoters(): Șterge lista de votanți din zonă.
-freeVotes(): Șterge numărul de voturi pentru toți candidații din zonă.
-checkVoter(): Verifică dacă un votant există în zonă.
-listVoters(): Listează toți votanții din zonă.
-returnVotes(): Returnează lista de voturi sortată în funcție de candidat.
+Represents a candidate in the election.
 
+### Attributes
+- `CNP`: A unique identifier for the candidate.
+- `age`: The candidate's age.
+- `name`: The candidate's name.
 
-Region
-Reprezintă o regiune (un grup de zone).
+### Methods
+- Getters and setters for each attribute.
 
-Atribute:
-nrVotes: Numărul total de voturi din regiune.
-votes: O mapă cu candidați și numărul de voturi primite în regiune.
+---
 
-Metode:
-Getteri și setteri pentru fiecare atribut.
+## Voter
 
+Represents an eligible voter in the election.
 
-Election
-Reprezintă alegerile propriu-zise, gestionând candidații, zonele și procesul electoral.
+### Attributes
+- `CNP`: A unique identifier for the voter.
+- `age`: The voter's age.
+- `graceless`: A boolean value indicating whether the voter is "clumsy".
+- `voted`: A boolean value indicating whether the voter has already voted.
+- `name`: The voter's name.
 
-Atribute:
-id: Un identificator unic pentru alegeri.
-name: Numele alegerii.
-status: Starea actuală a alegerii (de exemplu, neîncepută, în desfășurare sau încheiată).
-candidates: O mapă cu candidați, identificată prin CNP-ul lor.
-zones: O mapă cu zonele, identificate prin numele lor.
-frauds: O stivă pentru a urmări activitățile frauduloase în cadrul alegerilor.
+### Methods
+- `vote()`: Marks the voter as having voted.
 
-Metode:
-Metode pentru a adăuga, șterge și verifica candidați, votanți și zone.
-Metode pentru a lista candidații și voturile.
-Metode pentru a gestiona starea alegerilor (începere, încheiere).
-Metode de detectare a fraudelor pentru a adăuga și lista fraudele.
+---
 
+## Zone
 
-Analysis
-Oferă uneltele de analiză pentru a evalua rezultatele alegerilor.
+Represents a constituency (e.g., a town or district) where voters cast their votes.
 
-Metode:
-analyzeZone(): Analizează rezultatele pentru o zonă specifică și afișează numărul de voturi și procentele.
-analyzeNation(): Analizează rezultatele pentru întreaga națiune, agregând datele din toate regiunile.
+### Attributes
+- `name`: The name of the zone.
+- `totalVotes`: The total number of votes cast in this zone.
+- `region`: The region to which the zone belongs.
+- `voters`: A map of voters identified by their CNP.
+- `votes`: A map of candidates and the number of votes they received in this zone.
 
-Main:
-Programul citește datele de la tastatură și utilizează o structură switch pentru a verifica toate cazurile posibile, 
-inclusiv cazul implicit (default), care gestionează situațiile în care comanda introdusă este invalidă sau necunoscută.
-Pentru a asigura o mai bună lizibilitate, implementarea comenzilor a fost realizată în funcții separate.
+### Methods
+- `addVoter()`: Adds a voter to the zone.
+- `addVote()`: Records a vote for a candidate from a voter.
+- `freeVoters()`: Clears the list of voters in the zone.
+- `freeVotes()`: Clears the vote count for all candidates in the zone.
+- `checkVoter()`: Checks whether a voter exists in the zone.
+- `listVoters()`: Lists all voters in the zone.
+- `returnVotes()`: Returns the list of votes sorted by candidate.
 
-OBSERVAȚII:
-Ar fi fost posibilă implementarea clasei Region astfel încât să conțină toate circumscripțiile (zonele).
-Totuși, utilizarea regiunii este minimă, ceea ce înseamnă că această modificare nu este necesară.
+---
 
-Explicație:
-Deși ar fi putut fi creată o structură mai complexă, în care fiecare regiune să conțină toate zonele corespunzătoare,
-acest lucru nu adaugă un beneficiu semnificativ în contextul actual al aplicației.
-În prezent, regiunile sunt doar grupări logice ale zonelor, iar analiza alegerilor se face în principal pe zone, nu pe regiunile ca entități independente.
-Astfel, această abordare simplă este suficientă și nu impune modificări majore, menținând codul ușor de gestionat și eficient.
+## Region
 
-Utilizarea Inteligenței Artificiale (AI) a fost extrem de utilă în mai multe aspecte ale dezvoltării acestui proiect,
-dar este important de menționat că AI-ul a contribuit doar într-o mică măsură la implementare, estimându-se că sub 30% din cod a fost generat sau ajutat de AI,
-în timp ce restul de peste 70% a fost realizat individual.
+Represents a region (a group of zones).
 
-AI-ul a ajutat semnificativ la generarea rapidă a metodelor de tip getter și setter pentru fiecare atribut din clasele utilizate.
-Aceste metode sunt esențiale pentru manipularea obiectelor și au fost generate automat, economisind timp și reducând riscul de erori.
-De asemenea, prin autocompletarea codului, AI-ul a sugerat sau completat automat fragmente de cod standard, cum ar fi construcția constructorilor sau definirea unor metode de acces.
+### Attributes
+- `nrVotes`: The total number of votes in the region.
+- `votes`: A map of candidates and the number of votes received in the region.
 
-AI-ul a fost de ajutor și în procesul de învățare a unor noi clase sau tehnici, de exemplu sortarea unui HashMap.
-În loc să trebuiască să implementez manual logica de sortare, am învățat rapid cum să transform un HashMap într-un TreeMap pentru a obține ordonarea cheilor sau valorilor.
-Acest tip de abordare este eficientă pentru gestionarea datelor structurate, iar AI-ul a ajutat înțelegerea modului de utilizare a acestora
-În concluzie, AI-ul a fost un instrument de ajutor, însă marea majoritate a muncii a fost realizată manual, prin înțelegerea cerințelor și aplicarea logicii de programare.
+### Methods
+- Getters and setters for each attribute.
 
-Bonus:
-În această aplicație, a fost tratat și cazul în care comanda citită este invalidă sau necunoscută.
-De asemenea, ar fi fost posibil să se verifice situațiile în care argumentele unei comenzi au fost scrise necorespunzător.
-Un alt caz limită relevant ar fi cel legat de introducerea CNP-ului, unde se pot realiza verificări suplimentare.
-De exemplu, primele cifre, care reprezintă datele personale (cum ar fi data nașterii sau reședința), 
-pot fi utilizate pentru a confirma criterii specifice, precum verificarea unei vârste minime de 18 ani.
+---
 
-Din punct de vedere al refactorizării comenzilor și al răspunsurilor din aplicație, ar putea fi implementate câteva modificări pentru îmbunătățirea funcționalității. 
-De exemplu, s-ar putea adăuga posibilitatea de a lista toate comenzile disponibile împreună cu argumentele asociate acestora.
-O altă îmbunătățire ar fi introducerea opțiunii de a gestiona votanții din străinătate, incluzând și o analiză detaliată a voturilor provenite din diaspora.
-În cazul în care se detectează o posibilă fraudă, în loc să fie tratată automat ca atare, ar putea fi afișată o eroare care să solicite o confirmare suplimentară, 
-pentru a determina dacă este într-adevăr o fraudă sau doar o greșeală de input.
-De asemenea, atributul „neîndemânatic” ar putea deveni irelevant, deoarece implică utilizarea unor informații dificil de obținut și, prin urmare, nepractice.
+## Election
 
+Represents the election itself, managing candidates, zones, and the electoral process.
 
+### Attributes
+- `id`: A unique identifier for the election.
+- `name`: The name of the election.
+- `status`: The current state of the election (e.g., not started, ongoing, or finished).
+- `candidates`: A map of candidates identified by their CNP.
+- `zones`: A map of zones identified by their names.
+- `frauds`: A stack used to track fraudulent activities during the election.
 
+### Methods
+- Methods to add, delete, and verify candidates, voters, and zones.
+- Methods to list candidates and votes.
+- Methods to manage the election status (start, end).
+- Fraud detection methods to add and list fraud cases.
 
+---
 
+## Analysis
+
+Provides analysis tools to evaluate election results.
+
+### Methods
+- `analyzeZone()`: Analyzes the results for a specific zone and displays the number of votes and percentages.
+- `analyzeNation()`: Analyzes results for the entire nation by aggregating data from all regions.
+
+---
+
+# Main
+
+The program reads input from the keyboard and uses a `switch` structure to check all possible cases,  
+including the default case, which handles situations where the entered command is invalid or unknown.
+
+To improve readability, command implementations were placed in separate functions.
+
+---
+
+# Notes
+
+It would have been possible to implement the `Region` class so that it contains all constituencies (zones).  
+However, since the region is minimally used, this modification is not necessary.
+
+### Explanation
+
+Although a more complex structure could have been created, where each region contains all corresponding zones,  
+this would not add significant benefits in the current context of the application.
+
+At present, regions are simply logical groupings of zones, and election analysis is primarily performed at the zone level rather than treating regions as fully independent entities.
+
+Therefore, this simpler approach is sufficient and avoids major structural changes, keeping the code manageable and efficient.
+
+---
+
+# Use of Artificial Intelligence (AI)
+
+The use of Artificial Intelligence (AI) was extremely helpful in several aspects of developing this project.  
+However, it is important to mention that AI contributed only to a small extent to the implementation — it is estimated that less than 30% of the code was generated or assisted by AI, while over 70% was developed independently.
+
+AI significantly helped in quickly generating getter and setter methods for each class attribute.  
+These methods are essential for object manipulation and were generated automatically, saving time and reducing the risk of errors.
+
+Additionally, through code autocompletion, AI suggested or completed standard code fragments such as constructors or access method definitions.
+
+AI was also helpful in learning new classes or techniques, such as sorting a `HashMap`.  
+Instead of manually implementing sorting logic, it became easier to understand how to transform a `HashMap` into a `TreeMap` to obtain ordered keys or values.
+
+This approach is efficient for managing structured data, and AI helped clarify how to use these tools effectively.
+
+In conclusion, AI was a helpful tool, but the vast majority of the work was done manually by understanding the requirements and applying programming logic.
+
+---
+
+# Bonus
+
+In this application, the case where a command is invalid or unknown has been handled.
+
+It would also have been possible to verify cases where command arguments were incorrectly written.
+
+Another relevant edge case involves CNP validation, where additional checks could be implemented.  
+For example, the first digits — representing personal data (such as date of birth or residence) — could be used to confirm specific criteria, such as verifying a minimum voting age of 18 years.
+
+Regarding command refactoring and application responses, several improvements could be implemented:
+
+- Add the possibility to list all available commands along with their associated arguments.
+- Introduce support for managing voters from abroad, including a detailed analysis of diaspora votes.
+- When detecting possible fraud, instead of automatically treating it as such, display an error requesting additional confirmation to determine whether it is truly fraud or simply an input mistake.
+- The "graceless" attribute could become irrelevant, as it involves information that is difficult to obtain and therefore impractical.
